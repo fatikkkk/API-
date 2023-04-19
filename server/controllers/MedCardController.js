@@ -1,15 +1,25 @@
 import MedicalCardModel from "../models/MedicalCardModel.js"
 
-export const createMedCard = async (req, res) => {
-    try {
 
-        const { idEmployee, recordsInfo } = req.body
+//  Создание новой мед. карты
+export const createMedCard = async (req, res) => {
+    //  Обработка ошибок
+    try {
+        //  Получение значений с запроса
+        const { idEmployee } = req.body
+
+        //  Создание новой записи в документе
         const newMedCard = new MedicalCardModel({
-            idEmployee, recordsInfo
+            idEmployee
         })
+
+        //  Сохранение изменений
         await newMedCard.save()
         console.log('Send data from controller')
+
+        //  Отображение добавленной мед.карты
         return res.json(newMedCard)
+        
     } catch (error) {
         console.log(error)
     }
